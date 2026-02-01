@@ -1,0 +1,150 @@
+subnet for 16 offices using the available ip address space of 10.0.0.0/8 Maximize the number of hosts
+
+C - Convert(via subnet): 4 bits
+A - Add to original: /8 + 4bits = /12 (2nd, 16i)
+I - Ipasok si 16i sa 2nd octet, multiple times: 10
+
+
+1st office - 10.0.0.0 /12 = IP Subnet zero
+1st office - 10.16.0.0 /12 
+3rd office - 10.32.0.0 /12
+
+subnet for 8 offices using the available ip address space of 192.168.1.0/25 Maximize the number of hosts
+
+C - Convert(via subnet): 3 bits
+A - Add to original: /25 + 3bits = /28 (4th, 16i)
+I - Ipasok si 16i sa 4th octet, multiple times: 10
+
+
+1st office - 192.168.1.0 /28 = IP Subnet zero
+2nd office - 192.168.1.16 /28
+3rd office - 192.168.1.32 /28 
+4th office - 192.168.1.48 /28 
+4th office - 192.168.1.64 /28 
+4th office - 192.168.1.80 /28 
+4th office - 192.168.1.96 /28 
+4th office - 192.168.1.112 /28 
+
+
+
+subnet for 32 offices using the available ip address space of 10.0.0.0/16 Maximize the number of hosts
+
+Give me the 3rd office
+
+C - Convert(via subnet): 5 bits
+A - Add to original: /16 + 5bits = /21 (3rd, 8i)
+I - Ipasok si 8i sa 3rd octet, multiple times: 32
+
+
+1st office - 10.0.0.0 /21 = IP Subnet zero
+2nd office - 10.0.8.0 /21
+3rd office - 10.0.16.0 /21
+4th office - 10.0.24.0 /21
+1. Identify the first valid IP for that Office
+2. Identify the last valid IP for that Office
+
+3rd office - 10.0.16.0 /21
+1st valid: 10.0.16.1
+last valid: 10.0.23.254
+last ip/broadcast: 10.0.23.255
+
+4th office - 10.0.24.0 /21
+
+
+!@R1
+ conf t
+ int e1/0
+ ip add 10.0.16.1 255.255.248.0
+ no shut
+ end
+
+
+!@R2
+ conf t
+ int e1/2
+ ip add 10.0.23.254 255.255.248.0
+ no shut
+ end
+ping 
+!@R2 Change Value (out of range)
+conf t 
+int e1/2
+ip add 10.0.25.1 255.255.248.0
+no shut
+end
+
+
+
+
+******
+subnet for 70 offices using the available ip address space of 172.16.0.0/16 Maximize the number of hosts
+identify the 4th office
+
+C - Convert(via subnet): 7 bits
+A - Add to original: /16 + 7bits = /23 (3rd, 2i)
+I - Ipasok si 2i sa 3rd octet, multiple times: 
+
+
+1st office - 172.16.0.0 /23 = IP Subnet zero
+2nd office - 172.16.2.0 /23
+3rd office - 172.16.4.0 /23
+4th office - 172.16.6.0 /23
+
+identify the 4th office
+network:172.16.6.0 /23
+first valid:172.16.6.1 /23
+last valid:172.16.7.254 /23
+broadcast:172.16.7.255 /23
+NOT: 172.16.8.0 /23
+
+
+BITS
+DESIGN AND IMPLEMENT A NETWORK FOR ACCENTURE.COM WITH 13 HR. ADMINS, AND SOC ADMIN.
+- use the available ip address space 172.31.79.0 /26
+
+C: 13 = 4bits
+S: /32 - 4 = /28 (4th, 16I)
+I:172.31.79.16 255.255.255.240
+
+
+---STATIC ROUTING----
+FORMULA
+:DESTINATION :SUBMASK :NEXTHOP/INTERFACE
+
+
+!@R1
+conf t
+ ip route 10.1.1.5 255.255.255.255 10.1.1.2
+ end
+ping 10.1.1.5
+
+Configure static host route on R2 destined for 10.1.1.9
+!@R2
+conf t
+ ip route 10.1.1.9 255.255.255.255 10.1.1.6
+ end
+ping 10.1.1.9
+
+
+NETWORK ROUTE
+!@R2
+conf t
+ ip route 10.1.1.8 255.255.255.252 10.1.1.6
+ end
+ping 10.1.1.10
+
+
+
+Configured a network route on r4 destined for the network between r2 and r3
+!@R4
+conf t 
+ ip route 10.1.1.4 255.255.255.252 10.1.1.9
+ end
+ping 10.1.1.10
+
+
+
+Configured R1 to R4 
+!@
+
+
